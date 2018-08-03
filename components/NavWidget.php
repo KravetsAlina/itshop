@@ -8,12 +8,17 @@ use Yii;
 
 class NavWidget extends Widget
 {
+
   public $tpl;
+  //масив категорий котор получ из БД категории
   public $data;
+  //хранит результат работы ф-ции. Делает из обычного массива масив-дерево(будет видна вложенность)
   public $tree;
+  //готовый код в зависимости от свойства $tpl
   public $menuHtml;
   //переменная из category _form.php MenuWidget
   public $model;
+
   public function init()
   {
     parent::init();
@@ -23,9 +28,10 @@ class NavWidget extends Widget
     }
     $this->tpl.= '.php';
   }
+
   public function run()
   {
-    //cache  runtime->cache
+    //кешируем
     if($this->tpl == 'menu.php')
     {
       $menu = Yii::$app->cache->get('menu');
@@ -36,13 +42,16 @@ class NavWidget extends Widget
     $this->data = Category::find()->indexBy('id')->asArray()->all();
     $this->tree = $this->getTree();
     $this->menuHtml = $this->getMenuHtml($this->tree);
+
     if($this->tpl == 'menu.php')
     {
       Yii::$app->cache->set('menu', $this->menuHtml, 60);
     }
     // debug($this->tree);
+    // return $this->tpl;
     return $this->menuHtml;
   }
+
   //получаем дерево
   protected function getTree()
   {
@@ -51,11 +60,13 @@ class NavWidget extends Widget
         if(!$node['parent_id'])
             $tree[$id] = &$node;
         else
-            $this->data[$node['parent_id']][$node['id']] = &$node;
+            $this->data[$node['parent_id']]['childs'][$node['id']] = &$node;
     }
     return $tree;
   }
+
   //add to html
+  //отступ в списке категории
   protected function getMenuHtml($tree, $tab = '')
   {
     $str = '';
@@ -65,6 +76,7 @@ class NavWidget extends Widget
     }
     return $str;
   }
+
   //collection
   protected function catToTemplate($category, $tab)
   {
