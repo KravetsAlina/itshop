@@ -1,21 +1,26 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
-$this->title = "Apple";
+use app\assets\ProductAsset;
+use app\assets\AppAsset;
+
+ProductAsset::register($this);
+AppAsset::register($this);
 ?>
 
 <!-- Home -->
 
-<div class="home">
-  <div class="home_container">
-    <div class="home_background" style="background-image:url(images/categories.jpg)"></div>
-    <div class="home_content_container">
+<div class="main">
+  <div class="main_container">
+    <div class="main_background" style="background-image:url(../images/web/categories.jpg)"></div>
+    <div class="main_content_container">
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="home_content">
-              <div class="home_title">Smart Phones<span>.</span></div>
-              <div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</p></div>
+            <div class="main_content">
+              <div class="main_title">Smart Phones<span>.</span></div>
+              <div class="main_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</p></div>
             </div>
           </div>
         </div>
@@ -28,22 +33,17 @@ $this->title = "Apple";
 
 <div class="product_details">
   <div class="container">
-    <?php if(!empty($products)): ?>
-      <?php foreach($products as $product): ?>
     <div class="row details_row">
 
       <!-- Product Image -->
       <div class="col-lg-6">
-
         <div class="details_image">
-          <div class="details_image_large"><img src="../images/details_1.jpg" alt="">
-            <!-- <div class="product_extra product_new"><a href="categories.html">New</a></div> -->
-          </div>
+          <div class="details_image_large"><img src="../images/details_1.jpg" alt=""><div class="product_extra product_new"><a href="categories.html">New</a></div></div>
           <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-            <div class="details_image_thumbnail active" data-image="../images/details_1.jpg"><img src="images/details_1.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_2.jpg"><img src="images/details_2.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_3.jpg"><img src="images/details_3.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_4.jpg"><img src="images/details_4.jpg" alt=""></div>
+            <div class="details_image_thumbnail active" data-image="../images/details_1.jpg"><img src="../images/details_1.jpg" alt=""></div>
+            <div class="details_image_thumbnail" data-image="../images/details_2.jpg"><img src="../images/details_2.jpg" alt=""></div>
+            <div class="details_image_thumbnail" data-image="../images/details_3.jpg"><img src="../images/details_3.jpg" alt=""></div>
+            <div class="details_image_thumbnail" data-image="../images/details_4.jpg"><img src="../images/details_4.jpg" alt=""></div>
           </div>
         </div>
       </div>
@@ -51,65 +51,65 @@ $this->title = "Apple";
       <!-- Product Content -->
       <div class="col-lg-6">
         <div class="details_content">
-              <div class="details_name"><?= $product->name ?></div>
-              <div class="details_discount"><?= $product->price ?></div>
-              <div class="details_price">$670</div>
+          <div class="details_name"><?= $product->name ?></div>
+          <div class="details_discount"><?= $product->price ?></div>
+          <div class="details_price">$670</div>
 
-              <!-- In Stock -->
-              <div class="in_stock_container">
-                <div class="availability">Availability:</div>
-                <?php if(isset($product->qty) && $product->qty !== 0): ?>
-                    <span>В наличии</span>
-                <?php else: ?>
-                  <span>Нет в наличии</span>
-                <?php endif; ?>
-              </div>
-              <div class="details_text">
-                <p><?= $product->content ?></p>
-              </div>
+          <!-- In Stock -->
+          <div class="in_stock_container">
+            <div class="availability">Availability:</div>
+            <?php if(isset($product->qty) && $product->qty !== 0): ?>
+                <span>В наличии</span>
+            <?php else: ?>
+              <span>Нет в наличии</span>
+            <?php endif; ?>
+          </div>
+          <div class="details_text">
+            <p><?= $product->content ?></p>
+          </div>
 
-              <!-- Product Quantity -->
-              <div class="product_quantity_container">
-                <div class="product_quantity clearfix">
-                  <span>Qty</span>
-                  <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-                  <div class="quantity_buttons">
-                    <!-- <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-                    <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div> -->
-                  </div>
-                </div>
-                <div class="button cart_button"><a href="#">Add to cart</a></div>
-              </div>
-
-              <!-- Share -->
-              <div class="details_share">
-                <span>Share:</span>
-                <ul>
-                  <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                </ul>
+          <!-- Product Quantity -->
+          <div class="product_quantity_container">
+            <div class="product_quantity clearfix">
+              <span>Qty</span>
+              <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+              <div class="quantity_buttons">
+                <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
+                <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
               </div>
             </div>
-            <?php if($product->new): ?>
-              <?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
-            <?php endif; ?>
-            <?php if($product->sale): ?>
-              <?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
-            <?php endif; ?>
-            <?php if($product->hot): ?>
-              <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
-            <?php endif; ?>
-      <?php endforeach; ?>
-    <?php endif; ?>
+            <div class="button cart_button"><a href="#">Add to cart</a></div>
+          </div>
+
+          <!-- Share -->
+          <div class="details_share">
+            <span>Share:</span>
+            <ul>
+              <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
           </div>
         </div>
+      </div>
+    </div>
+
+    <?php if($product->new): ?>
+      <?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
+    <?php endif; ?>
+    <?php if($product->sale): ?>
+      <?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
+    <?php endif; ?>
+    <?php if($product->hot): ?>
+      <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+    <?php endif; ?>
 
     <div class="row description_row">
       <div class="col">
         <div class="description_title_container">
-          <div class="description_title">Отзывы будут тут<span>(1)</span></div>
+          <div class="description_title">Description</div>
+          <div class="reviews_title"><a href="#">Reviews <span>(1)</span></a></div>
         </div>
         <div class="description_text">
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
@@ -125,54 +125,63 @@ $this->title = "Apple";
   <div class="container">
     <div class="row">
       <div class="col text-center">
-        <div class="products_title">Последние поступления</div>
+        <div class="products_title">Горячее предложение</div>
       </div>
     </div>
     <div class="row">
       <div class="col">
 
         <div class="product_grid">
-
-          <!-- Product -->
-
-                <div class="product">
-                  <div class="product_image"><img src="../images/product_1.jpg" alt=""></div>
-                  <div class="product_extra product_new"><a href="categories.html">New</a></div>
-                  <div class="product_content">
-                    <div class="product_title"><a href="#">New</a></div>
-                    <div class="product_price">$670</div>
+          <?php if(!empty($hots)): ?>
+            <?php foreach ($hots as $hot): ?>
+                  <div class="product">
+                    <div class="product_image"><img src="../images/product_1.jpg" alt=""></div>
+                    <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+                    <div class="product_content">
+                      <div class="product_title"><a href="#"><?= $hot->name?></a></div>
+                      <div class="product_price">$<?= $hot->price?></div>
+                    </div>
                   </div>
-                </div>
-
-
+            <?php endforeach; ?>
+          <?php endif; ?>
 
           <!-- Product -->
-          <div class="product">
-            <div class="product_image"><img src="../images/product_2.jpg" alt=""></div>
+          <!-- <div class="product">
+            <div class="product_image"><img src="images/product_1.jpg" alt=""></div>
+            <div class="product_extra product_new"><a href="categories.html">New</a></div>
+            <div class="product_content">
+              <div class="product_title"><a href="product.html">Smart Phone</a></div>
+              <div class="product_price">$670</div>
+            </div>
+          </div> -->
+
+          <!-- Product -->
+          <!-- <div class="product">
+            <div class="product_image"><img src="images/product_2.jpg" alt=""></div>
             <div class="product_extra product_sale"><a href="categories.html">Sale</a></div>
             <div class="product_content">
               <div class="product_title"><a href="product.html">Smart Phone</a></div>
               <div class="product_price">$520</div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Product -->
-          <div class="product">
-            <div class="product_image"><img src="../images/product_3.jpg" alt=""></div>
+          <!-- <div class="product">
+            <div class="product_image"><img src="images/product_3.jpg" alt=""></div>
             <div class="product_content">
               <div class="product_title"><a href="product.html">Smart Phone</a></div>
               <div class="product_price">$710</div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Product -->
-          <div class="product">
-            <div class="product_image"><img src="../images/product_4.jpg" alt=""></div>
+          <!-- <div class="product">
+            <div class="product_image"><img src="images/product_4.jpg" alt=""></div>
             <div class="product_content">
               <div class="product_title"><a href="product.html">Smart Phone</a></div>
               <div class="product_price">$330</div>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -181,27 +190,4 @@ $this->title = "Apple";
 </div>
 
 <!-- Newsletter -->
-
-<div class="newsletter">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="newsletter_border"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="newsletter_content text-center">
-          <div class="newsletter_title">Subscribe to our newsletter</div>
-          <div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros</p></div>
-          <div class="newsletter_form_container">
-            <form action="#" id="newsletter_form" class="newsletter_form">
-              <input type="email" class="newsletter_input" required="required">
-              <button class="newsletter_button trans_200"><span>Subscribe</span></button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <?= $this->render('/partials/newsletter');?>

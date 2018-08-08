@@ -3,8 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Response;
 use app\models\Category;
 use app\models\Product;
 use yii\data\Pagination;
@@ -12,71 +10,86 @@ use yii\data\Pagination;
 class CategoryController extends MainController
 {
   public function actionIndex()
-      {
-        //popular
-          $hots = Product::find()->where(['hot'=> '1'])->limit(4)->all();
-        //sale
-          $sales = Product::find()->where(['sale'=> '1'])->limit(4)->all();
-        //new
-          $news = Product::find()->where(['new'=> '1'])->limit(4)->all();
+  {
+    //products on main page
+    $onMain = Product::find()->where(['onMain'=> '1'])->orderBy('id DESC')->limit(12)->all();
 
+    $this->setMeta('Apple');
 
-          $this->setMeta('Apple');
-          return $this->render('index', compact('hots', 'sales', 'news'));
-      }
-
-//страница с перечнем дочерних категорий
-  public function actionView($id){
-        $id = Yii::$app->request->get('id');
-
-         $category = Category::findOne($id);
-
-         if (empty($category)) { // item does not exist
-           throw new \yii\web\HttpException(404, 'Такой категории товаров не существует');
-         }
-
-        $categories = Category::find()->where(['parent_id'=>$id])->all();
-
-         // debug($categories);
-
-         //setMeta
-
-         $this->setMeta('Apple | ' . $category->name, $category->description, $category->keywords );
-
-        return $this->render('view', compact('categories', 'category'));
+    return $this->render('index', compact('onMain'));
   }
 
-//страница с товаром конкретной категории
-  public function actionCategory($id)
-      {
-        $query = Product::find()->where(['category_id'=>$id]);
-        // $data = Category::getProductsByCategory($id);
-        // $query = Product::find()->where(['category_id'=>$id]);
-        // $count = $query->count();
+  //page with collection doughter categories
+  public function actionView($id)
+  {
+    $category = Category::findOne($id);
 
-        $pagination = new Pagination([
-            'PageSize' => 1,
-            'totalCount' => $query->count(),
-            'forcePageParam'=>false,
-            'pageSizeParam'=>false,
-        ]);
+    //page 404
+    if (empty($category)) {
+      throw new \yii\web\HttpException(404, 'Такой категории товаров не существует');
+    }
 
-        $products = $query
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+    $categories = Category::find()->where(['parent_id'=>$id])->all();
 
-        $data['products'] = $products;
-        $data['pagination'] = $pagination;
+    //count all products. Integer
+          $count = Category::find($id)
+              ->where(['parent_id'=>$id])
+              ->count();
 
-        return $this->render('category',[
-          'products'  => $data['products'],
-          'pagination' => $data['pagination'],
-        ]);
+    $this->setMeta('Apple | ' . $category->name, $category->keywords, $category->description);
 
+    return $this->render('view', compact('categories', 'category', 'count'));
+  }
 
+  //page with products from concreta category
+  public function actionItems($id)
+  {
+    $query = Product::find()->where(['category_id'=>$id]);
 
-        return $this->render('category', compact('pagination', 'products'));
-      }
+    $pages = new Pagination([
+      'totalCount'=>$query->count(),
+      'pageSize'=>4,
+      'forcePageParam'=>false,
+      'pageSizeParam'=>false]);
+
+    $products = $query
+      ->offset($pages->offset)
+      ->limit($pages->limit)
+      ->all();
+
+//count all products. Integer
+      $count = Product::find($id)
+          ->where(['category_id' => $id])
+          ->count();
+
+    return $this->render('items', compact('pages', 'products', 'count' ));
+  }
+
+  //search on page
+  public function actionSearch($search)
+  {
+    //if search is empty
+    if(!$search)
+    {
+        return $this->render('search');
+    }
+
+    $query = Product::find()->where(['like', 'name', $search]);
+    $pages = new Pagination([
+      'totalCount'=>$query->count(),
+      'pageSize'=>4,
+      'forcePageParam'=>false,
+      'pageSizeParam'=>false]);
+
+    $products = $query
+      ->offset($pages->offset)
+      ->limit($pages->limit)
+      ->all();
+
+    //title on page
+    $this->setMeta('Apple | ' . $search);
+
+    return $this->render('search', compact('products', 'pages', 'search'));
+  }
 
 }

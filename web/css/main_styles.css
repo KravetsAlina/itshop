@@ -46,6 +46,7 @@ body
 	background: #FFFFFF;
 	color: #a5a5a5;
 }
+
 div
 {
 	display: block;
@@ -443,6 +444,60 @@ section
 {
 
 }
+
+.pagination
+{
+	font-size: 16px;
+	color: #A5A5A5;
+	padding-left:0;
+	margin:0 20px 25px 0;
+	border-radius:4px;
+	border-color: black;
+  padding-left: 15px;
+}
+
+	.pagination  li:first-child  a, .pagination  li:first-child  span
+	{
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  margin-left: 0;
+}
+
+.pagination  li:last-child  a, .pagination  li:last-child  span
+{
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.pagination  .active  a, .pagination  .active  span, .pagination  .active  a:hover, .pagination  .active  span:hover, .pagination  .active  a:focus, .pagination  .active  span:focus
+{
+  background-color: #A5A5A5;
+  border-color: #A5A5A5;
+  color: #FFFFFF;
+  cursor: default;
+  z-index: 2;
+}
+
+.pagination  li  a, .pagination  li  span
+{
+  background-color: #f0f0e9;
+  border: 0;
+  float: left;
+  line-height: 1.42857;
+  margin-left: -1px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+  margin-right: 5px;
+  color:#000;
+}
+
+.pagination  li  a:hover
+{
+	background:#A5A5A5;
+	color:#fff;
+}
+
 .shopping_cart
 {
 	display: inline-block;
@@ -1076,6 +1131,10 @@ section
 /*********************************
 7. Products
 *********************************/
+.product_details
+{
+	margin-top: 170px;
+}
 
 .products
 {
@@ -1163,6 +1222,16 @@ section
 	background: #1b1b1b;
 }
 
+.results
+{
+	padding-top: 30px;
+}
+
+.title_search
+{
+	padding-top: 45px;
+	padding-bottom: 25px;
+}
 /*********************************
 8. Ad Extra Large
 *********************************/
@@ -1252,6 +1321,11 @@ section
 	margin-top: 20px;
 }
 
+.products_title
+{
+	color: black;
+	padding-bottom: 25px;
+}
 /*********************************
 10. Newsletter
 *********************************/

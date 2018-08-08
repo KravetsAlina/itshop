@@ -7,7 +7,6 @@ use yii\db\ActiveRecord;
 class Product extends ActiveRecord
 {
 
-  //связь табл и модели
   public static function tableName()
   {
     return 'product';
@@ -15,7 +14,7 @@ class Product extends ActiveRecord
 
   public function getCategory()
   {
-    //один продукт одна категория
+    //one product = one category
     return $this->hasOne(Product::className(), [
       'id' => 'category_id',
     ]);

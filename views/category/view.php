@@ -1,6 +1,12 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
+use app\assets\ProductAsset;
+use app\assets\AppAsset;
+
+ProductAsset::register($this);
+AppAsset::register($this);
 ?>
 
 <div class="super_container">
@@ -13,8 +19,8 @@ use yii\helpers\Url;
 
 					<!-- Product Sorting -->
 					<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
-						<div class="results">Showing <span>12</span> results</div>
-						<div class="sorting_container ml-md-auto">
+						<div class="results">Показано <span><?= $count; ?></span> категорий</div>
+						<!-- <div class="sorting_container ml-md-auto">
 							<div class="sorting">
 								<ul class="item_sorting">
 									<li>
@@ -28,7 +34,7 @@ use yii\helpers\Url;
 									</li>
 								</ul>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -44,19 +50,16 @@ use yii\helpers\Url;
       							<div class="product_image"><img src="../images/product_1.jpg" alt=""></div>
 
       							<div class="product_content">
-      								<div class="product_title"><a href="<?= Url::toRoute(['category/category','id'=>$category->id]);?>"><?= $category->name; ?></a><span class="post-count pull-right"><span> (<?= $category->getProductsCount();?>)</span></div>
+      								<div class="product_title"><a href="<?= Url::toRoute(['category/items','id'=>$category->id]);?>"><?= $category->name; ?></a><span class="post-count pull-right"><span> (<?= $category->getProductsCount();?>)</span></div>
 
       							</div>
       						</div>
 
 
-          <?php endforeach; ?>
-        <?php endif; ?>
-
+		          <?php endforeach; ?>
+		        <?php endif; ?>
 
 					</div>
-          <h1>Pagination will be here...</h1>
-
 
 				</div>
 			</div>
@@ -64,73 +67,10 @@ use yii\helpers\Url;
 	</div>
 
 	<!-- Icon Boxes -->
-
-	<div class="icon_boxes">
-		<div class="container">
-			<div class="row icon_box_row">
-
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_1.svg" alt=""></div>
-						<div class="icon_box_title">Free Shipping Worldwide</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_2.svg" alt=""></div>
-						<div class="icon_box_title">Free Returns</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_3.svg" alt=""></div>
-						<div class="icon_box_title">24h Fast Support</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+	  <?= $this->render('/partials/icon_boxes');?>
 
 	<!-- Newsletter -->
-
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_border"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2">
-					<div class="newsletter_content text-center">
-						<div class="newsletter_title">Subscribe to our newsletter</div>
-						<div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros</p></div>
-						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required">
-								<button class="newsletter_button trans_200"><span>Subscribe</span></button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	  <?= $this->render('/partials/newsletter');?>
 
 
 </div>

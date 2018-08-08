@@ -1,5 +1,5 @@
 <?php
-//меню категории
+//menu category
 namespace app\components;
 
 use yii\base\Widget;
