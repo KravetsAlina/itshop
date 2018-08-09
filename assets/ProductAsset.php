@@ -15,17 +15,17 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class CategoryAsset extends AssetBundle
+class ProductAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-      'css/categories_responsive.css',
-      'css/categories.css',
+      'css/product_responsive.css',
+      'css/product.css',
     ];
 
     public $js = [
-      'js/categories.js',
+      'js/product.js',
+      // 'js/main.js'
     ];
-
 }

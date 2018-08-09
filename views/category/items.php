@@ -2,7 +2,12 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-$this->title = 'Apple';
+use app\assets\CategoryAsset;
+// use app\assets\AppAsset;
+
+CategoryAsset::register($this);
+// AppAsset::register($this);
+$this->title = 'Apple.';
 ?>
 
 <div class="super_container">
@@ -16,7 +21,7 @@ $this->title = 'Apple';
 					<!-- Product Sorting -->
 					<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
 
-						<div class="results">Всего <span><?= $count; ?></span> товаров в этой категории</div>
+						<div class="results">Всего <span><?= $count; ?></span> товаров</div>
 
 						<div class="sorting_container ml-md-auto">
 							<div class="sorting">
@@ -46,21 +51,25 @@ $this->title = 'Apple';
               <?php foreach ($products as $product): ?>
 						      <div class="product">
       							<div class="product_image"><img src="../images/product_2.jpg" alt=""></div>
+										<?= Html::img('@web/images/products/{$product->image}', ['alt' => $product->name]) ?>
+		                <?php if($product->new): ?>
+		                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
+		                <?php endif; ?>
+		                <?php if($product->sale): ?>
+		                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
+		                <?php endif; ?>
+		                <?php if($product->hot): ?>
+		                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+		                <?php endif; ?>
 	      							<div class="product_content">
 	      								<div class="product_title"><a href="<?= Url::toRoute(['product/view','id'=>$product->id]);?>"><?= $product->name; ?></a></div>
 												<div class="product_price">$<?= $product->price ?></div>
 	      							</div>
+											<div class="group_b">
+												<a href="#" class="cart_small"><img src="../images/web/cart.png" alt="cart"></a>
+												<a href="#" class="favorite_small"><img src="../images/web/cards-heart.png" alt="favorite"></a>
+											</div>
       						</div>
-
-									<?php if($product->new): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
-									<?php endif; ?>
-									<?php if($product->sale): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
-									<?php endif; ?>
-									<?php if($product->hot): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
-									<?php endif; ?>
 
 	          <?php endforeach; ?>
 	        <?php endif; ?>

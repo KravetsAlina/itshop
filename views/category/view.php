@@ -2,11 +2,11 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-use app\assets\ProductAsset;
-use app\assets\AppAsset;
+use app\assets\CategoryAsset;
+// use app\assets\AppAsset;
 
-ProductAsset::register($this);
-AppAsset::register($this);
+CategoryAsset::register($this);
+// AppAsset::register($this);
 ?>
 
 <div class="super_container">
@@ -19,7 +19,7 @@ AppAsset::register($this);
 
 					<!-- Product Sorting -->
 					<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
-						<div class="results">Показано <span><?= $count; ?></span> категорий</div>
+						<div class="results">Показано <span><?= $count; ?></span> подкатегории в <?= $category->name; ?></div>
 						<!-- <div class="sorting_container ml-md-auto">
 							<div class="sorting">
 								<ul class="item_sorting">

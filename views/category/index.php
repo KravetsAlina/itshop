@@ -1,6 +1,9 @@
 <?php
 use  yii\helpers\Html;
 use  yii\helpers\Url;
+// use app\assets\AppAsset;
+//
+// AppAsset::register($this);
 ?>
 <!-- Home -->
 
@@ -103,7 +106,7 @@ use  yii\helpers\Url;
         <div class="avds_small_content">
           <div class="avds_title">Смартфоны</div>
           <div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur adipiscing elit ullam de con si. </div>
-          <div class="avds_link"><a href="<?= Url::to(['/items/2'])?>">Смотреть</a></div>
+          <div class="avds_link"><a href="<?= Url::to(['/category/2'])?>">Смотреть</a></div>
         </div>
       </div>
     </div>
@@ -113,7 +116,7 @@ use  yii\helpers\Url;
         <div class="avds_large_content">
           <div class="avds_title">Профессиональные камеры</div>
           <div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viver ra velit venenatis fermentum luctus.</div>
-          <div class="avds_link avds_link_large"><a href="<?= Url::to(['/items/20'])?>">Смотреть</a></div>
+          <div class="avds_link avds_link_large"><a href="<?= Url::to(['/category/20'])?>">Смотреть</a></div>
         </div>
       </div>
     </div>
@@ -148,6 +151,10 @@ use  yii\helpers\Url;
                   <div class="product_title"><a href="<?= Url::toRoute(['product/view', 'id'=>$main->id])?>"><?= $main->name ?></a></div>
                   <div class="product_price">$<?= $main->price ?></div>
                 </div>
+                <div class="group_b">
+                  <a href="<?= Url::to(['cart/add', 'id'=>$main->id])?>" data-id="<?= $main->id ?>" class="cart_small add-to-cart"><img src="../images/web/cart.png" alt="cart"></a>
+                  <a href="#" class="favorite_small"><img src="../images/web/cards-heart.png" alt="favorite"></a>
+                </div>
               </div>
             <?php endforeach; ?>
           <?php endif; ?>
@@ -170,7 +177,7 @@ use  yii\helpers\Url;
           <div class="avds_xl_content">
             <div class="avds_title">Крутые гаджеты</div>
             <div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus.</div>
-            <div class="avds_link avds_xl_link"><a href="<?= Url::to(['/items/4'])?>">Смотреть</a></div>
+            <div class="avds_link avds_xl_link"><a href="<?= Url::to(['/category/4'])?>">Смотреть</a></div>
           </div>
         </div>
       </div>

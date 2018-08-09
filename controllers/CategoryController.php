@@ -14,7 +14,7 @@ class CategoryController extends MainController
     //products on main page
     $onMain = Product::find()->where(['onMain'=> '1'])->orderBy('id DESC')->limit(12)->all();
 
-    $this->setMeta('Apple');
+    $this->setMeta('Apple.');
 
     return $this->render('index', compact('onMain'));
   }
@@ -36,7 +36,7 @@ class CategoryController extends MainController
               ->where(['parent_id'=>$id])
               ->count();
 
-    $this->setMeta('Apple | ' . $category->name, $category->keywords, $category->description);
+    $this->setMeta('Apple. | ' . $category->name, $category->keywords, $category->description);
 
     return $this->render('view', compact('categories', 'category', 'count'));
   }
@@ -62,7 +62,7 @@ class CategoryController extends MainController
           ->where(['category_id' => $id])
           ->count();
 
-    return $this->render('items', compact('pages', 'products', 'count' ));
+    return $this->render('items', compact('pages', 'products', 'count'));
   }
 
   //search on page
@@ -87,7 +87,7 @@ class CategoryController extends MainController
       ->all();
 
     //title on page
-    $this->setMeta('Apple | ' . $search);
+    $this->setMeta('Apple. | ' . $search);
 
     return $this->render('search', compact('products', 'pages', 'search'));
   }

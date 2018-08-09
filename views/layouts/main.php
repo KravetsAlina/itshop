@@ -9,8 +9,9 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\components\NavWidget;
-use app\assets\AppAsset;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
@@ -42,7 +43,7 @@ AppAsset::register($this);
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="<?= Url::home()?>"><?= Html::img("@web/images/web/apple_small.png") ?>Apple</a>
+							<div class="logo"><a href="<?= Url::home()?>"><?= Html::img("@web/images/web/apple_small.png") ?>Apple.</a>
 
 							</div>
 
@@ -69,7 +70,7 @@ AppAsset::register($this);
 							</nav>
 							<div class="header_extra ml-auto">
 								<div class="shopping_cart">
-									<a href="cart.html">
+									<a href="<?= Url::to(['cart/view'])?>" >
 										<div>
 											<span><img src="../images/web/cart.png" alt="cart">(0)</span>
 										</div>
@@ -125,7 +126,7 @@ AppAsset::register($this);
 			<div class="row">
 				<div class="col">
 					<div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
-						<div class="footer_logo"><a href="#">Apple</a></div>
+						<div class="footer_logo"><a href="#">Apple.</a></div>
 						<div class="copyright ml-auto mr-auto">I don't use this template for commercial purposes, only as an example of working with YII2.<br> Some parts of this template is changed.<br><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> Thank you!</div>
@@ -142,7 +143,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
-</div>
+<!-- </div> -->
+
+<?php
+Modal::begin([
+	'id'     => 'cart',
+	'size'   => 'modal-lg',
+	'footer' => '<button type="button" class="btn btn-primary" data-dismiss="modal">
+								Продолжить покупки</button>
+							 <a href="' . Url::to(['cart/view']) . '" class="btn btn-success">Оформить заказ</a>'
+]);
+Modal::end();
+?>
 
 <?php $this->endBody() ?>
 </body>

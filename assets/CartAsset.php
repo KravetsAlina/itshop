@@ -15,17 +15,22 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class CategoryAsset extends AssetBundle
+class CartAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-      'css/categories_responsive.css',
-      'css/categories.css',
+      'css/cart_responsive.css',
+      'css/cart.css',
+      'css/checkout_responsive.css',
+      'css/checkout.css',
     ];
-
     public $js = [
-      'js/categories.js',
+      'js/checkout.js',
+      'js/cart.js',
     ];
-
+    public $depends = [
+        // 'yii\web\YiiAsset',
+        // 'yii\bootstrap\BootstrapAsset',
+    ];
 }
