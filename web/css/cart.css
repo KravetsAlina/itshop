@@ -903,7 +903,7 @@ section
 }
 .cart_info_col_product
 {
-	width: 57%;
+	width: 59%;
 }
 .cart_info_col_price
 {
@@ -911,7 +911,7 @@ section
 }
 .cart_info_col_quantity
 {
-	width: 13%;
+	width: 10%;
 	text-align: center;
 }
 .cart_info_col_total
@@ -931,27 +931,27 @@ section
 }
 .cart_item_product
 {
-	width: 53%;
+	width: 59%;
 }
 .cart_item_price
 {
 	width: 10%;
 	text-align: center;
 }
-.cart_item_quantity
+.cart_item_qty
 {
-	width: 13%;
+	width: 10%;
 	text-align: center;
 }
 .cart_item_total
 {
 	width: 10%;
-	text-align: right;
+	text-align: center;
 }
 .cart_item_delete
 {
 	width: 10%;
-	text-align: right;
+	text-align: center;
 }
 .cart_item_image div
 {
@@ -1380,4 +1380,16 @@ label
 .footer_social ul li a i:hover
 {
 	color: #FFFFFF;
+}
+.btn-order{
+	padding: 15px 20px;
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+	border: 1px solid black;
+	border-radius: 15px;
+	color: black;
+	margin: 15px 0 25px 0;
+}
+.btn-order:hover{
+	background-color: #E95A5A;
 }

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use app\models\Cart;
 
 //titles for pages
 class MainController extends Controller
@@ -13,5 +14,6 @@ class MainController extends Controller
         $this->view->title = $title;
         $this->view->registerMetaTag(['name' => 'keywords', 'content' => "$keywords"]);
         $this->view->registerMetaTag(['name' => 'description', 'content' => "$description"]);
-    }
+  }
+
 }

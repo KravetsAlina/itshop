@@ -34,7 +34,23 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            //true - for mail test
+              'useFileTransport' => true,
+          //     'transport' => [
+          //     'class' => 'Swift_SmtpTransport',
+          //     'host' => 'smtp.gmail.com',
+          //     'username' => 'alinakravets2017@gmail.com',
+          //     'password' => 'reserved34sad',
+          //     'port' => '587',
+          //     'encryption' => 'tls',
+          //     'streamOptions' => [
+          //       'ssl' => [
+          //         'allow_self_signed' => true,
+          //         'verify_peer' => false,
+          //         'verify_peer_name' => false,
+          //       ],
+          //     ],
+          // ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -56,7 +72,7 @@ $config = [
               //для ЧПУ в меню
               'category/<id:\d+>'=>'category/view',
               'product/<id:\d+>'=>'product/view',
-              
+
               'search'=>'category/search',
 
             ],

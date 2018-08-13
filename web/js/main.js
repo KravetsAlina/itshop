@@ -116,6 +116,28 @@ $(document).ready(function(){
            });
        });
 
+
+
+//корзина для вью карт
+       $('.cart_item_delete .cart_info').on('click', '.del-item', function(){
+
+           var id = $(this).data('id');
+           $.ajax({
+               url: '/cart/del-item',
+               data: {id: id},
+               type: 'GET',
+               success: function(res){
+                   if(!res) alert('Ошибка!');
+                   console.log(id);
+                   showCart(res);
+               },
+               error: function(){
+                  alert('ERROR');
+               }
+           });
+       });
+
+
 //очистить корзину
        // function clearCart(){
        //     $.ajax({
@@ -135,10 +157,10 @@ $(document).ready(function(){
        $('.add-to-cart').on('click', function(e){
            e.preventDefault();
            var id = $(this).data('id');
-           // var qty = $('#qty').val();
+           var qty = $('#qty').val();
            $.ajax({
                url: '/cart/add',
-               data: {id: id},
+               data: {id: id, qty: qty},
                type: 'GET',
                success: function(res){
                    if(!res) alert('Ошибка!');

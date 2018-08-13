@@ -15,7 +15,7 @@ class CategoryController extends MainController
     $onMain = Product::find()->where(['onMain'=> '1'])->orderBy('id DESC')->limit(12)->all();
 
     $this->setMeta('Apple.');
-
+    
     return $this->render('index', compact('onMain'));
   }
 

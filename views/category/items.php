@@ -66,7 +66,7 @@ $this->title = 'Apple.';
 												<div class="product_price">$<?= $product->price ?></div>
 	      							</div>
 											<div class="group_b">
-												<a href="#" class="cart_small"><img src="../images/web/cart.png" alt="cart"></a>
+												<a href="<?= Url::to(['cart/add', 'id'=>$product->id])?>" data-id="<?= $product->id ?>" class="cart_small add-to-cart"><img src="../images/web/cart.png" alt="cart"></a>
 												<a href="#" class="favorite_small"><img src="../images/web/cards-heart.png" alt="favorite"></a>
 											</div>
       						</div>
