@@ -3,8 +3,8 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use Yii;
 use yii\data\Pagination;
+use Yii;
 
 class Category extends ActiveRecord
 {

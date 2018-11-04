@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\ProductAsset;
+use app\assets\AppAsset;
 
+AppAsset::register($this);
 ProductAsset::register($this);
 ?>
 
@@ -36,12 +38,14 @@ ProductAsset::register($this);
       <!-- Product Image -->
       <div class="col-lg-6">
         <div class="details_image">
-          <div class="details_image_large"><img src="../images/details_1.jpg" alt=""></div>
-          <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-            <div class="details_image_thumbnail active" data-image="../images/details_1.jpg"><img src="../images/details_1.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_2.jpg"><img src="../images/details_2.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_3.jpg"><img src="../images/details_3.jpg" alt=""></div>
-            <div class="details_image_thumbnail" data-image="../images/details_4.jpg"><img src="../images/details_4.jpg" alt=""></div>
+          <div class="details_image_large">
+            <div id="gallery2">
+            <?php if($product->image): ?>
+              <a href="zoom">
+                <img class="grow" src="/upload/<?= $product->image?>" alt="">
+              </a>
+            <?php endif; ?>
+          </div>
           </div>
         </div>
       </div>
@@ -50,7 +54,6 @@ ProductAsset::register($this);
       <div class="col-lg-6">
         <div class="details_content">
           <div class="details_name"><?= $product->name ?></div>
-
 
           <!-- In Stock -->
           <?php if( $product->qty !== 0): ?>
@@ -72,23 +75,20 @@ ProductAsset::register($this);
             <h3>Колличество: </h3>
             <div class="product_quantity clearfix">
               <input id="qty" type="text" pattern="[0-9]*" value="1">
-              <!-- <div class="quantity_buttons">
-                <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-                <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-              </div> -->
             </div>
             <div class="button cart_button"><a class="add-to-cart" href="<?= Url::to(['cart/add', 'id'=>$product->id])?>" data-id="<?= $product->id ?>">В корзину</a></div>
           </div>
 
           <!-- Share -->
           <div class="details_share">
-            <span>Share:</span>
+            <span>Поделиться:</span>
             <!-- https://github.com/yiimaker/yii2-social-share -->
             <ul>
-              <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <?= \ymaker\social\share\widgets\SocialShare::widget([
+                  'configurator'  => 'socialShare',
+                  'url'           => \yii\helpers\Url::to(['product/view', 'id'=>$product->id], true),
+                  'title'         => $product->name,
+              ]); ?>
             </ul>
           </div>
         </div>
@@ -96,25 +96,23 @@ ProductAsset::register($this);
     </div>
 
     <?php if($product->new): ?>
-      <?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
+      <?= Html::img("@web/images/web/new.png",['alt'=>'new', 'class'=>'product_extra ']) ?>
     <?php endif; ?>
     <?php if($product->sale): ?>
-      <?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
+      <?= Html::img("@web/images/web/sale.png",['alt'=>'sale', 'class'=>'product_extra ']) ?>
     <?php endif; ?>
     <?php if($product->hot): ?>
-      <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+      <?= Html::img("@web/images/web/hot.png",['alt'=>'hot', 'class'=>'product_extra ']) ?>
     <?php endif; ?>
 
-    <div class="row description_row">
-      <div class="col">
-        <div class="description_title_container">
-          <div class="description_title">Отзывы <span>(1)</span></div>
-        </div>
-        <div class="description_text">
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
-        </div>
-      </div>
-    </div>
+<!-- Comment for product -->
+            <?= $this->render('/partials/comment', [
+              'product'    =>$product,
+              'comments'   =>$comments,
+              'commentForm'=>$commentForm,
+              'count'      =>$count
+            ]); ?>
+<!-- End Comment for product -->
   </div>
 </div>
 
@@ -127,30 +125,26 @@ ProductAsset::register($this);
         <div class="products_title">Горячее предложение</div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-
-        <div class="product_grid">
-          <?php if(!empty($hots)): ?>
-            <?php foreach ($hots as $hot): ?>
-                  <div class="product">
-
-                    <div class="product_image"><img src="../images/product_1.jpg" alt=""></div>
-                    <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
-                    <div class="product_content">
-                      <div class="product_title"><a href="#"><?= $hot->name?></a></div>
-                      <div class="product_price">$<?= $hot->price?></div>
-                    </div>
-
-                  </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
-
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-
-<!-- Newsletter -->
-  <?= $this->render('/partials/newsletter');?>
+<div class="carousel-wrap">
+  <div class="owl-carousel">
+    <?php if(!empty($hots)): ?>
+      <?php foreach ($hots as $hot): ?>
+        <div class="item">
+          <a href="<?= Url::toRoute(['product/view', 'id'=>$hot->id])?>">
+            <?php if($hot->image): ?>
+                <img src="/upload/<?= $hot->image?>" alt="">
+            <?php endif; ?>
+          </a>
+          <br>
+          <a href="<?= Url::toRoute(['product/view', 'id'=>$hot->id])?>">
+          <?= $hot->name ?>
+          </a>
+          <br><br>
+          <div class="hot_price"><?= $hot->price ?>$</div>
+        </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
+</div>

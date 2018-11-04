@@ -7,7 +7,6 @@ use yii;
 
 class CommentForm extends Model
 {
-  //1 свойство для коммент
   public $comment;
 
   //валидация
@@ -19,12 +18,12 @@ class CommentForm extends Model
     ];
   }
 
-  public function saveComment($article_id)
+  public function saveComment($product_id)
   {
     $comment = new Comment;
     $comment->text = $this->comment;
     $comment->user_id = Yii::$app->user->id;
-    $comment->article_id = $article_id;
+    $comment->product_id = $product_id;
     $comment->status = 0;
     $comment->date = date('Y-m-d');
     return $comment->save();

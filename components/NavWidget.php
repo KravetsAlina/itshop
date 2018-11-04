@@ -2,9 +2,9 @@
 //menu category
 namespace app\components;
 
+use Yii;
 use yii\base\Widget;
 use app\models\Category;
-use Yii;
 
 class NavWidget extends Widget
 {
@@ -57,6 +57,7 @@ class NavWidget extends Widget
   {
     $tree = [];
     foreach($this->data as $id=>&$node){
+    
         if(!$node['parent_id'])
             $tree[$id] = &$node;
         else
@@ -85,4 +86,5 @@ class NavWidget extends Widget
     include __DIR__ . '/menu_tpl/' . $this->tpl;
     return ob_get_clean();
   }
+
 }

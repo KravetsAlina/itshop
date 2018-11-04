@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -103,17 +104,11 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->render('contact');
     }
 
     /**
@@ -121,8 +116,73 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+    // public function actionAbout()
+    // {
+    //     return $this->render('about');
+    // }
+
+
+
+
+    //Форма подписки из виджета
+// public function actionSubscription(){
+//     $model = new \common\models\Subscription();
+//     if ($model->load(Yii::$app->request->post()) && $model->validate()){
+//         $email = Html::encode($model->email);
+//         $model->email = $email;
+//         $model->addtime = (string) time();
+//         if ($model->save()) {
+//             Yii::$app->response->refresh(); //очистка данных из формы
+//             echo "<p style='color:green'>Подписка оформлена!</p>";
+//             exit;
+//         }
+//     } else {
+//         echo "<p style='color:red'>Ошибка оформления подписки.</p>";
+//         //Проверяем наличие фразы в массиве ошибки
+//         if(strpos($model->errors['email'][0], 'уже занято') !== false) {
+//             echo "<p style='color:red'>Вы уже подписаны!</p>";
+//         }
+//     }
+//     exit;
+// }
+
+//add admin in DB only one
+// public function actionAddAdmin() {
+//     $model = User::find()->where(['username' => 'admin'])->one();
+//     if (empty($model)) {
+//         $user = new User();
+//         $user->username = 'admin';
+//         $user->email = 'admin@i.ua';
+//         $user->isAdmin = 1;
+//         $user->setPassword('admin');
+//         $user->generateAuthKey();
+//         if ($user->save()) {
+//             echo 'yes';
+//         }
+//     }
+// }
+
+// public function actionNewsletter()
+// {
+//   $model = new EntryForm();
+//
+//         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        // $email = Html::encode($model->email);
+        // $model->email = $email;
+        // $model->addtime = (string) time();
+        // if ($model->save()) {
+        //     Yii::$app->response->refresh(); //очистка данных из формы
+        //     echo "<p style='color:green'>Подписка оформлена!</p>";
+        //     exit;
+        // return $this->render('/partials/newsletter', 'model'=>$model);
+        // }
+    // } else {
+    //     echo "<p style='color:red'>Ошибка оформления подписки.</p>";
+    //     //Проверяем наличие фразы в массиве ошибки
+    //     if(strpos($model->errors['email'][0], 'уже занято') !== false) {
+    //         echo "<p style='color:red'>Вы уже подписаны!</p>";
+    //     }
+    // }
+//
+// }
 }

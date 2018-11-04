@@ -1,6 +1,9 @@
 <?php
 use  yii\helpers\Html;
 use  yii\helpers\Url;
+use app\assets\CartAsset;
+
+CartAsset::register($this);
 ?>
 <h2>Корзина</h2></hr>
 <?php if(!empty($session['cart'])): ?>
@@ -19,8 +22,12 @@ use  yii\helpers\Url;
       <tbody>
         <?php foreach($session['cart'] as $id => $item): ?>
           <tr>
-            <td><img src="../images/product_1.jpg" alt="" style="width: 50px; height:50px;"></td>
-            <td><?= $item['name']?></td>
+            <td>
+              <a href="<?= Url::to(['product/view', 'id'=>$id])?>">
+                <?= '<img src="/upload/'. $item['image'] .'" style="height: 50px; width: 50px;">' ?>
+              </a>
+            </td>
+            <td><a href="<?= Url::to(['product/view', 'id'=>$id])?>"><?= $item['name']?></a></td>
             <td><?= $item['qty']?></td>
             <td><?= $item['price']?></td>
             <td><span data-id="<?=$id?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>

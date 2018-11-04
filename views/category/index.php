@@ -1,13 +1,15 @@
 <?php
 use  yii\helpers\Html;
 use  yii\helpers\Url;
-// use app\assets\AppAsset;
-//
-// AppAsset::register($this);
+use yii\widgets\ActiveForm;
+use app\assets\AppAsset;
+
+AppAsset::register($this);
 ?>
 <!-- Home -->
 
 <div class="home">
+
   <div class="home_slider_container">
 
     <!-- Home Slider -->
@@ -23,7 +25,6 @@ use  yii\helpers\Url;
                 <div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
                   <div class="home_slider_title">магазин Apple.</div>
                   <div class="home_slider_subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</div>
-                  <!-- <div class="button button_light home_button"><a href="#">Shop Now</a></div> -->
                 </div>
               </div>
             </div>
@@ -136,24 +137,30 @@ use  yii\helpers\Url;
               <!-- Those products which have "1" in DB column "onMain"               -->
             <?php foreach($onMain as $main): ?>
               <div class="product">
-                <div class="product_image"><img src="../images/product_1.jpg" alt=""></div>
-                <?= Html::img('@web/images/products/{$main->image}', ['alt' => $main->name]) ?>
+                <div class="product_image">
+                  <a href="<?= Url::toRoute(['product/view', 'id'=>$main->id])?>">
+                    <?= '<img src="/upload/'. $main->image .'">' ?>
+                  </a>
+                </div>
                 <?php if($main->new): ?>
-                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
+                  <?= Html::img("@web/images/web/new.png",['alt'=>'new', 'class'=>'product_extra product_new']) ?>
                 <?php endif; ?>
+
                 <?php if($main->sale): ?>
-                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
+                  <?= Html::img("@web/images/web/sale.png",['alt'=>'sale', 'class'=>'product_extra product_sale']) ?>
                 <?php endif; ?>
+
                 <?php if($main->hot): ?>
-                  <?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+                  <?= Html::img("@web/images/web/hot.png",['alt'=>'hot', 'class'=>'product_extra product_hot']) ?>
                 <?php endif; ?>
+                
                 <div class="product_content">
                   <div class="product_title"><a href="<?= Url::toRoute(['product/view', 'id'=>$main->id])?>"><?= $main->name ?></a></div>
                   <div class="product_price">$<?= $main->price ?></div>
                 </div>
                 <div class="group_b">
                   <a href="<?= Url::to(['cart/add', 'id'=>$main->id])?>" data-id="<?= $main->id ?>" class="cart_small add-to-cart"><img src="../images/web/cart.png" alt="cart"></a>
-                  <a href="#" class="favorite_small"><img src="../images/web/cards-heart.png" alt="favorite"></a>
+                  <a href="<?= Url::to(['favorite/add', 'id'=>$main->id])?>" data-id="<?= $main->id ?>" class="favorite_small add-to-favorite"><img src="../images/web/cards-heart.png" alt="favorite"></a>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -185,10 +192,8 @@ use  yii\helpers\Url;
   </div>
 </div>
 
+<!-- Newsletter -->
+  <?= $this->render('/partials/newsletter', compact('model'));?>
+
 <!-- Icon Boxes -->
   <?= $this->render('/partials/icon_boxes');?>
-
-
-
-<!-- Newsletter -->
-  <?= $this->render('/partials/newsletter');?>

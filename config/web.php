@@ -9,11 +9,46 @@ $config = [
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
     'defaultRoute' => 'category/index',
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+            'layout' => 'admin',
+            'defaultRoute' => 'order/index',
+        ],
+
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+
+          // Button for Shareing on ProductPage
+          'socialShare' => [
+              'class' => \ymaker\social\share\configurators\Configurator::class,
+              'socialNetworks' => [
+                  'facebook' => [
+                      'class' => \ymaker\social\share\drivers\Facebook::class,
+                      'label' => Yii::t('app', '<img src="../images/web/facebook.png">'),
+                      'options' => ['class' => 'fb'],
+                  ],
+                  'twitter' => [
+                      'class' => \ymaker\social\share\drivers\Twitter::class,
+                      'label' => Yii::t('app', '<img src="../images/web/twitter.png">'),
+                      'options' => ['class' => 'tw'],
+                  ],
+                  'googlePlus' => [
+                      'class' => \ymaker\social\share\drivers\GooglePlus::class,
+                      'label' => Yii::t('app', '<img src="../images/web/google.png">'),
+                      'options' => ['class' => 'gp'],
+                  ],
+
+              ],
+              'options' => [
+                  'class' => 'social-network',
+              ],
+          ],// end share button
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kvalOqp0-4nitKdZw6yDkISYWj6dk5d8',
@@ -25,41 +60,10 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['auth/login']
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            //true - for mail test
-              'useFileTransport' => true,
-          //     'transport' => [
-          //     'class' => 'Swift_SmtpTransport',
-          //     'host' => 'smtp.gmail.com',
-          //     'username' => 'alinakravets2017@gmail.com',
-          //     'password' => 'reserved34sad',
-          //     'port' => '587',
-          //     'encryption' => 'tls',
-          //     'streamOptions' => [
-          //       'ssl' => [
-          //         'allow_self_signed' => true,
-          //         'verify_peer' => false,
-          //         'verify_peer_name' => false,
-          //       ],
-          //     ],
-          // ],
-        ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
         ],
         'db' => $db,
         'urlManager' => [

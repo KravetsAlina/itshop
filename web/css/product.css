@@ -361,7 +361,7 @@ section
 {
 	font-size: 16px;
 	font-weight: 600;
-	color: #767676;
+	color: #000000;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -1271,17 +1271,14 @@ section
 .product_extra
 {
 	position: absolute;
-	top: 0;
+	top: 120px;
 	left: 54px;
-	width: 66px;
-	height: 36px;
 	text-align: center;
 	-webkit-transform-origin: top left;
 	-moz-transform-origin: top left;
 	-ms-transform-origin: top left;
 	-o-transform-origin: top left;
 	transform-origin: top left;
-	transform: rotate(90deg);
 }
 .product_extra a
 {
@@ -1291,17 +1288,11 @@ section
 	color: #FFFFFF;
 	line-height: 36px;
 }
-.product_new
-{
-	background: #6c6a74;
-}
-.product_sale
-{
-	background: #e95a5a;
-}
-.product_hot
-{
-	background: #1b1b1b;
+.grow:hover {
+  -webkit-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+  z-index: 1;
 }
 
 /*********************************
@@ -1408,6 +1399,87 @@ section
 {
 	color: #FFFFFF;
 }
+
+/*****************
+Comments on product page
+*****************/
+.bottom-comment
+{
+	border: 1px solid black;
+	border-radius: 15px;
+	width: 75%;
+	text-align: center;
+}
+.comment-text h5
+{
+	color:blue;
+}
+.comment-date
+{
+	font-style: italic;
+}
+
+
+/* product carousel */
+.carousel-wrap
+{
+  margin: 90px auto -200px auto;
+  padding: 0 5%;
+  width: 80%;
+  position: relative;
+	padding-bottom: 140px;
+}
+
+/* fix blank or flashing items on carousel */
+.owl-carousel .item
+{
+  position: relative;
+  z-index: 100;
+  -webkit-backface-visibility: hidden;
+}
+
+/* end fix */
+.owl-nav > div
+{
+  margin-top: -26px;
+  position: absolute;
+  top: 50%;
+  color: #cdcbcd;
+}
+
+.owl-nav i
+{
+  font-size: 52px;
+}
+
+.owl-nav .owl-prev
+{
+  left: -30px;
+	margin-top: -300px;
+}
+
+.owl-nav .owl-next
+{
+  right: -30px;
+	margin-top: -300px;
+}
+
+.item a
+{
+  color: black;
+}
+.item a:hover
+{
+  color: #E95A5A;
+}
+
+div .hot_price
+{
+  color: #928DB2;
+  text-align: center;
+}
+/* end product carousel */
+
 
 /*********************************
 9. Footer

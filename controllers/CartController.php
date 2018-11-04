@@ -55,7 +55,7 @@ class CartController extends MainController
     $session->open();
 
     $cart = new Cart();
-    //пересчет в модели цен
+    //recalc price
     $cart->recalc($id);
 
     $this->layout = false;
@@ -83,22 +83,14 @@ class CartController extends MainController
     if( $order->load(Yii::$app->request->post()) ){
       $order->qty = $session['cart.qty'];
       $order->sum = $session['cart.sum'];
+
       if($order->save()){
         $this->saveOrderItems($session['cart'], $order->id);
         Yii::$app->session->setFlash('success', 'Ваш заказ принят. Менеджер свяжется с вами в ближайшее время.');
-//mail
-        $result = Yii::$app->mailer->compose('order', ['session'=>$session])
-            ->setFrom(['alinakravets2017@gmail.com'=>'Apple.'])
-            ->setTo($order->email)
-            ->setSubject('Заказ №'. $order->id)
-            ->send();
 
         $session->remove('cart');
         $session->remove('cart.qty');
         $session->remove('cart.sum');
-
-
-//транзакции. откат если что то пошло не так
 
         return $this->refresh();
       }else{
@@ -106,8 +98,9 @@ class CartController extends MainController
       }
     }
 
-    return $this->render('view', compact('session', 'order'));
+      return $this->render('view', compact('session', 'order'));
   }
+
 
   protected function saveOrderItems($items, $order_id)
   {

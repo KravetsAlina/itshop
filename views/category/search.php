@@ -24,9 +24,12 @@ use yii\widgets\LinkPager;
 						<!-- Product -->
             <?php if(!empty($products)): ?>
               <?php foreach ($products as $product): ?>
-
 						      <div class="product">
-      							<div class="product_image"><img src="../images/product_2.jpg" alt=""></div>
+										<div class="product_image">
+											<a href="<?= Url::toRoute(['product/view', 'id'=>$product->id])?>">
+												<img src="/upload/<?= $product->image?>" alt="">
+											</a>
+										</div>
       							<div class="product_content">
       								<div class="product_title">
                         <a href="<?= Url::toRoute(['product/view','id'=>$product->id]);?>"><?= $product->name; ?></a>
@@ -35,17 +38,19 @@ use yii\widgets\LinkPager;
       							</div>
 										<div class="group_b">
 											<a href="<?= Url::to(['cart/add', 'id'=>$product->id])?>" data-id="<?= $product->id ?>" class="cart_small add-to-cart"><img src="../images/web/cart.png" alt="cart"></a>
-											<a href="#" class="favorite_small"><img src="../images/web/cards-heart.png" alt="favorite"></a>
+											<a href="<?= Url::to(['favorite/add', 'id'=>$product->id])?>" data-id="<?= $product->id ?>" class="favorite_small add-to-favorite"><img src="../images/web/cards-heart.png" alt="favorite"></a>
 										</div>
       						</div>
 									<?php if($product->new): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'новинка', 'class'=>'product_extra product_new']) ?>
+										<?= Html::img("@web/images/web/new.png",['alt'=>'new', 'class'=>'product_extra product_new']) ?>
 									<?php endif; ?>
+
 									<?php if($product->sale): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'распродажа', 'class'=>'product_extra product_sale']) ?>
+										<?= Html::img("@web/images/web/sale.png",['alt'=>'sale', 'class'=>'product_extra product_sale']) ?>
 									<?php endif; ?>
+									
 									<?php if($product->hot): ?>
-										<?= Html::img("@web/images/cards-heart.png",['alt'=>'предложение', 'class'=>'product_extra product_hot']) ?>
+										<?= Html::img("@web/images/web/hot.png",['alt'=>'hot', 'class'=>'product_extra product_hot']) ?>
 									<?php endif; ?>
 
             <?php endforeach; ?>

@@ -26,6 +26,5 @@ class ProductAsset extends AssetBundle
 
     public $js = [
       'js/product.js',
-      // 'js/main.js'
     ];
 }

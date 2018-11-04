@@ -18,7 +18,6 @@ class m180726_115454_create_product_table extends Migration
         'name'=>$this->string(),
         'image'=>$this->string(),
         'price' =>$this->float(),
-        'price2' =>$this->float(),
         'content'=>$this->string(),
         'qty' =>$this->integer(),
         'availability' =>$this->integer()->defaultValue(1),

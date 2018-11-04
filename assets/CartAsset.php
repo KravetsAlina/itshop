@@ -30,7 +30,6 @@ class CartAsset extends AssetBundle
       'js/cart.js',
     ];
     public $depends = [
-        // 'yii\web\YiiAsset',
-        // 'yii\bootstrap\BootstrapAsset',
+      //
     ];
 }

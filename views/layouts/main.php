@@ -12,6 +12,7 @@ use app\components\NavWidget;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use app\assets\AppAsset;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -55,29 +56,49 @@ AppAsset::register($this);
 											<?= NavWidget::widget(['tpl' => 'menu']) ?>
 										</ul>
 									</li>
-									<li class="hassubs">
-										<a href="categories.html">Доставка и оплата</a>
-										<ul>
-											<li><a href="categories.html">Category</a></li>
-											<li><a href="categories.html">Category</a></li>
-											<li><a href="categories.html">Category</a></li>
-											<li><a href="categories.html">Category</a></li>
-											<li><a href="categories.html">Category</a></li>
-										</ul>
-									</li>
-									<li><a href="contact.html">Контакты</a></li>
+									<li>
+										<?php echo Menu::widget([
+										    'items' => [
+										        ['label' => 'Контакты', 'url' => ['site/contact']],
+
+										    ],
+												'options' => [
+												'class' => 'hassubs widg',
+												'data'=>'menu',
+												],
+											]);
+												?></li>
+				 <?php if(Yii::$app->user->isGuest): ?>
+						 <li class='widg'><a href="<?= Url::toRoute(['auth/login'])?>">Вход</a></li>
+						 <li class='widg'><a href="<?= Url::toRoute(['auth/signup'])?>">Регистрация</a></li>
+			   <?php elseif(Yii::$app->user->identity->isAdmin): ?>
+							<li class='widg'><a href="<?= Url::toRoute(['/admin'])?>">Админ</a></li>
+							<li><div id="btn-logout"><?= Html::beginForm(['/auth/logout'], 'post'). Html::submitButton(
+										 'Выход (' . Yii::$app->user->identity->username . ')',
+										 ['class' => 'btn btn-link logout hassubs widg']). Html::endForm() ?></div></li>
+				 <?php else: ?>
+					 <li>
+						 <?= Html::beginForm(['/auth/logout'], 'post')
+						 . Html::submitButton(
+								 'Выход (' . Yii::$app->user->identity->username . ')',
+								 ['class' => 'btn btn-link logout hassubs widg']
+						 )
+						 . Html::endForm() ?></li>
+				 <?php endif;?>
+
+
 								</ul>
 							</nav>
 							<div class="header_extra ml-auto">
 								<div class="shopping_cart">
 									<a href="<?= Url::to(['cart/view'])?>" >
 										<div>
-											<span><img src="../images/web/cart.png" alt="cart">(0)</span>
+											<span><img src="../images/web/cart.png" alt="cart"></span>
 										</div>
 									</a>
-									<a href="favorite.html">
+									<a href="<?= Url::to(['favorite/view'])?>" >
 										<div>
-											<span><img src="../images/web/cards-heart.png" alt="favorite">(0)</span>
+											<span><img src="../images/web/cards-heart.png" alt="favorite"></span>
 										</div>
 									</a>
 								</div>
@@ -101,7 +122,7 @@ AppAsset::register($this);
 					<div class="col">
 						<div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
 							<form method="get" action="<?= Url::to(['category/search'])?>">
-								<input type="text" name="search" class="search_input" placeholder="Search" required="required">
+								<input type="text" name="search" class="search_input" placeholder="Поиск" required="required">
 							</form>
 						</div>
 					</div>
@@ -127,9 +148,9 @@ AppAsset::register($this);
 				<div class="col">
 					<div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
 						<div class="footer_logo"><a href="#">Apple.</a></div>
-						<div class="copyright ml-auto mr-auto">I don't use this template for commercial purposes, only as an example of working with YII2.<br> Some parts of this template is changed.<br><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						<div class="copyright ml-auto mr-auto">example of working with YII2.<br> More parts of this template was changed.<br><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> Thank you!</div>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 						<div class="footer_social ml-lg-auto">
 							<ul>
 								<li><a href="https://www.pinterest.ru/"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
@@ -145,6 +166,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 <!-- </div> -->
 
+
+<!-- modal-cart -->
 <?php
 Modal::begin([
 	'id'     => 'cart',
@@ -155,6 +178,8 @@ Modal::begin([
 ]);
 Modal::end();
 ?>
+<!-- end modal-cart -->
+
 
 <?php $this->endBody() ?>
 </body>

@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error container">
+<div class="site-error container" style="padding-top: 130px;">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -17,7 +17,7 @@ $this->title = $name;
 
         <?=(nl2br(Html::encode($message))) ?>
     </div>
-        <!-- <?php// echo(Html::encode($message))?> -->
+        
 
 
 </div>

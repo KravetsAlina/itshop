@@ -6,6 +6,9 @@ use Yii;
 use app\models\Category;
 use app\models\Product;
 use yii\data\Pagination;
+use app\models\EntryForm;
+use yii\helpers\Html;
+use yii\data\Sort;
 
 class CategoryController extends MainController
 {
@@ -15,9 +18,24 @@ class CategoryController extends MainController
     $onMain = Product::find()->where(['onMain'=> '1'])->orderBy('id DESC')->limit(12)->all();
 
     $this->setMeta('Apple.');
-    
-    return $this->render('index', compact('onMain'));
+
+//form for sending user's e-mail in DB on main page
+//форма подписки
+    $model = new EntryForm();
+    if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+      $email = Html::encode($model->email);
+      $model->email = $email;
+      $model->addtime = date('Y-m-d');
+
+      $session = Yii::$app->session;
+      $session->open();
+        if ($model->save()) {
+          Yii::$app->session->setFlash('success', 'Подписка оформленна');
+        }
+    }
+    return $this->render('index', compact('onMain', 'model'));
   }
+
 
   //page with collection doughter categories
   public function actionView($id)
@@ -41,14 +59,14 @@ class CategoryController extends MainController
     return $this->render('view', compact('categories', 'category', 'count'));
   }
 
-  //page with products from concreta category
+  //page with products from each category
   public function actionItems($id)
   {
     $query = Product::find()->where(['category_id'=>$id]);
 
     $pages = new Pagination([
       'totalCount'=>$query->count(),
-      'pageSize'=>4,
+      'pageSize'=> 4,
       'forcePageParam'=>false,
       'pageSizeParam'=>false]);
 
@@ -62,7 +80,8 @@ class CategoryController extends MainController
           ->where(['category_id' => $id])
           ->count();
 
-    return $this->render('items', compact('pages', 'products', 'count'));
+        return $this->render('items', compact('pages', 'products', 'count'));
+
   }
 
   //search on page

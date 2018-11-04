@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\Cart;
 
-//titles for pages
+//title for pages
 class MainController extends Controller
 {
   protected function setMeta($title = null, $keywords = null, $description = null)
@@ -15,5 +15,4 @@ class MainController extends Controller
         $this->view->registerMetaTag(['name' => 'keywords', 'content' => "$keywords"]);
         $this->view->registerMetaTag(['name' => 'description', 'content' => "$description"]);
   }
-
 }

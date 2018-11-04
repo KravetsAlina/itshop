@@ -27,15 +27,6 @@ class AppAsset extends AssetBundle
       'plugins/OwlCarousel2-2.2.1/animate.css',
       'css/main_styles.css',
       'css/responsive.css',
-      // 'css/cart_responsive.css',
-      // 'css/cart.css',
-      // 'css/categories_responsive.css',
-      // 'css/categories.css',
-      // 'css/checkout_responsive.css',
-      // 'css/checkout.css',
-      // 'css/contact_responsive.css',
-      // 'css/product_responsive.css',
-      // 'css/product.css',
     ];
     public $js = [
       'js/jquery-3.2.1.min.js',
@@ -51,7 +42,6 @@ class AppAsset extends AssetBundle
       'plugins/Isotope/isotope.pkgd.min.js',
       'plugins/easing/easing.js',
       'plugins/parallax-js-master/parallax.min.js',
-
       'js/main.js',
     ];
     public $depends = [
